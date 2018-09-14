@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en">
+    <th:block th:replace="root.html :: stylesheet"></th:block>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+<div class="wrapper">
+    <th:block th:insert="root :: header"></th:block>
+    <th:block th:insert="root :: sidebar"></th:block>
+
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Permohonan
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-comments-o"></i> Pelayanan</a></li>
+                <li class="active">[[${subTitle}]]</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Horizontal Form -->
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Permohonan Pengurangan</h3>
+                                <div class="box-tools">
+                                    <a href="/pelayanan/permohonan-pengurangan-penduduk/daftar" role="button" class="form-control pull-right btn btn-primary">Daftar Permohonan</a>
+                                </div>
+                            </div>
+                            <div align="center" th:if="${error}">
+                                <p style="font-size: 20; color: #ff2b1a;">Permohonan Gagal dibuat</p>
+                            </div>
+                            <div align="center" th:if="${success}">
+                                <p style="font-size: 20; color: #4bd17b;">Permohonan Berhasil dibuat</p>
+                            </div>
+                            <!-- form start -->
+                            <form class="form-horizontal" th:object="${detailPengurangan}" th:action="@{/penduduk/permohonan/pengurangan/detail}" method="post">
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Wajib Pajak</h3>
+                                            </div><br/>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Tahun Pajak :</label>
+                                                    <br/>
+                                                    <small>*) isi dengan tahun pajak yang ingin dilakukan pengurangan. Contoh: 2018 </small>
+
+                                                    <input disabled="true" type="number" th:field="*{tahun}" class="form-control" id="inputTahunPajak" placeholder="Tahun Pajak" />
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Nama :</label>
+                                                    <input disabled="true" type="text" th:field="*{namaWP}"  class="form-control" id="inputNama" placeholder="Nama" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />NPWP :</label>
+
+                                                    `                      <input disabled="true" type="text" th:field="*{NPWP}" class="form-control" id="inputNPWP" placeholder="NPWP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Alamat :</label>
+                                                    <input disabled="true" type="text" th:field="*{alamatWP}"   class="form-control" id="inputAlamat" placeholder="Alamat" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Nomor Telepon/ HP :</label><br/>
+                                                    <small>*) isi nomor Telepon/ HP anda. Contoh : 082112342341</small>
+                                                    <input disabled="true" type="text" th:field="*{noTelpWP}" class="form-control" id="inputNomorTelp" placeholder="No.Telp/ Hp" />
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Pengurangan Sebesar :</label><br/>
+                                                    <small>*) isi jumlah pengurangan yang ingin di kurangi. Contoh : 20000</small>
+                                                    <input disabled="true" type="text" th:field="*{besarPengurangan}" class="form-control" id="inputPenguranganSebesar" placeholder="Jumlah Pengurangan" />
+                                                </div>
+
+                                            </div>
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Objek Pajak :</h3>
+                                            </div><br/>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Nomor Objek Pajak :</label><br/>
+                                                    <small>*) isi Nomor Objek Pajak tanah atau bangunan anda. Contoh : 31.74.021.002.012-0371.0</small>
+                                                    <input disabled="true" type="text" th:field="*{NOP}" class="form-control" id="inputNOP" placeholder="NOP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Alamat Objek Pajak :</label><br/>
+                                                    <small>*) isi alamat Objek Pajak anda. Contoh : jl.sisingamangaraja kecamatan balige</small>
+                                                    <input disabled="true" type="text" th:field="*{alamatOP}" class="form-control" id="inputAlamatOP" placeholder="Alamat" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Jenis Permohonan :</label><br/>
+                                                    <!--<small>*) isi dengan Kabupaten/ Kota Objek Pajak anda. Contoh : Toba Samosir</small>-->
+                                                    <input disabled="true" type="text" class="form-control" th:field="*{jenisPermohonan}" id="inputKabupatenOP" placeholder="Jenis Permohonan" />
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label"><input type="checkbox" />Keterangan :</label><br/>
+                                                    <small>*) isi dengan alasan anda melakukan permohonan pengurangan PBB.</small>
+                                                    <textarea disabled="true" class="form-control rounded-0"
+                                                              id="inputKeterangan" rows="3"
+                                                              placeholder="Masukkan Keterangan Pengajuan"
+                                                              th:field="*{keterangan}"></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Sebagai Bahan Pertimbangan, Lampirkan berkas yang diperlukan</h3>
+                                            </div><br/>
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan SPPT/ SKP PBB *)
+															Tahun Pajak (harus ada) </span>
+                                                    </label>
+                                                    <input  disabled="true" type="text" class="form-control"
+                                                           th:field="*{fcSPPT}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Bukti Pelunasan
+															PBB (STTS) Tahun Terakhir (harus ada)</span>
+                                                    </label>
+                                                    <input disabled="true" type="text" class="form-control"
+                                                           th:field="*{fcBuktiPelunasan}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Surat Kuasa (harus ada
+															bila dikuasakan</span>
+                                                    </label>
+
+                                                    <input type="text" class="form-control" disabled="true"
+                                                           th:field="*{fcSuratKuasa}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Tanda anggota
+															Veteran/ SK Pensiun</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcTandaVeteran}" />
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Daftar gaji/ slip
+															pensiun</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcDaftarGaji}" />
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Surat Pernyataan Besarnya
+															Penghasilan diketahui Kepala Desa/ Lurah</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcBesarPenghasilan}" />
+                                                </div>
+                                                <div class="form-group">
+
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Rekening listrik,
+															air, telepon bulan terakhir (harus ada)</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcRekeningListrik}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Surat Keterangan Bencana
+															dari Instansi Terkait</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcKeteranganBencana}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan SPTPPh tahun
+															pajak sebelumnya (untuk WP Badan)</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcSPTPPh}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label><input type="checkbox" />
+                                                        <span class="label-text">Hasil Scan Laporan Keuangan
+															Perusahaan tahun sebelumnya (untuk WP Badan)</span>
+                                                    </label>
+                                                    <input type="text" name="file" class="form-control" disabled="true"
+                                                           th:field="*{fcLaporanKeuanganPerusahaan}" />
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <a href="/pelayanan/permohonan-pengurangan-penduduk/daftar" role="button" class="btn btn-info pull-right">OKE</a>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                        </div>
+                        <!-- /.box -->
+                        <!-- general form elements disabled -->
+
+                    </div>
+                    <!--/.col (right) -->
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+
+    <th:block th:insert="root :: footer"></th:block>
+    <th:block th:insert="root :: control-sidebar"></th:block>
+</div>
+<th:block th:insert="root :: script"></th:block>
+
+</body>
+</html>

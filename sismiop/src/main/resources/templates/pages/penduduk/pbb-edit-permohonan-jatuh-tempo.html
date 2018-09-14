@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en">
+    <th:block th:replace="root.html :: stylesheet"></th:block>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+<div class="wrapper">
+    <th:block th:insert="root :: header"></th:block>
+    <th:block th:insert="root :: sidebar"></th:block>
+
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Permohonan
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-comments-o"></i> Pelayanan</a></li>
+                <li class="active">[[${subTitle}]]</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Horizontal Form -->
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Edit Permohonan Penentuan Kembali Jatuh Tempo</h3>
+                                <div class="box-tools">
+                                    <a href="/penduduk/permohonan/daftar-permohonan-wajib-pajak/jatuh-tempo" role="button" class="form-control pull-right btn btn-primary">Daftar Permohonan</a>
+                                </div>
+                            </div>
+                            <div align="center" th:if="${error}">
+                                <p style="font-size: 20; color: #ff2b1a;">Permohonan Gagal diedit</p>
+                            </div>
+                            <div align="center" th:if="${success}">
+                                <p style="font-size: 20; color: #4bd17b;">Permohonan Berhasil diedit</p>
+                            </div>
+                            <!-- form start -->
+                            <form class="form-horizontal" th:object="${editJatuhTempo}" th:action="@{/penduduk/permohonan/jatuh-tempo/edit}" method="post">
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Wajib Pajak</h3>
+                                            </div><br/>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Tahun Pajak :</label><br/>
+                                                    <small>*) isi dengan tahun pajak yang ingin dilakukan pengurangan. Contoh: 2018 </small>
+                                                    <input type="number" th:field="*{tahun}" class="form-control" id="inputTahunPajak" placeholder="Tahun Pajak" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Nama :</label><br/>
+
+                                                    <input type="text" th:field="*{nama}"  disabled="true" class="form-control" id="inputNama" placeholder="Nama" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label ">Alamat :</label>
+
+                                                    <input type="text" th:field="*{alamat}"  disabled="true" class="form-control" id="inputAlamat" placeholder="Alamat" />
+                                                </div>
+                                            </div>
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Objek Pajak</h3>
+                                            </div><br/>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label ">NOP :</label><br/>
+                                                    <small>*) isi Nomor Objek Pajak tanah atau bangunan anda. Contoh : 31.74.021.002.012-0371.0</small>
+                                                    <input type="text" th:field="*{NOP}" class="form-control" id="inputNOP" placeholder="NOP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label ">Letak Objek Pajak :</label><br/>
+                                                    <small>*) isi alamat Objek Pajak anda. Contoh : jl.sisingamangaraja kecamatan balige</small>
+                                                    <input type="text" th:field="*{letakOP}" class="form-control" id="inputDesaOP" placeholder="Desa/ Keluarahan" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Jenis Permohonan :</label><br/>
+                                                    <!--<small>*) isi dengan Kabupaten/ Kota Objek Pajak anda. Contoh : Toba Samosir</small>-->
+                                                    <input type="text" class="form-control" th:field="*{jenisPermohonan}" id="inputKabupatenOP" placeholder="Jenis Permohonan" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Tanggal SPPT diterima :</label><br/>
+                                                    <small>*) isi tanggal SPPT yang anda terima. Contoh : 31-02-2018</small>
+                                                    <input type="text" class="form-control" th:field="*{SPPTditerima}" id="inputKabupatenOP" placeholder="Kabupaten/ Kota" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Sebagai Bahan Pertimbangan, Lampirkan berkas yang diperlukan</h3>
+                                            </div><br/>
+                                            <div class="col-sm-10">
+                                                <div class="form-group">
+                                                    <label>
+                                                        <span class="label-text">Hasil Scan KTP atau KK atau identitas lainnya </span>
+                                                    </label>
+                                                    <input type="file" name="file"
+                                                           th:field="*{fcKTP}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <span class="label-text">Hasil Scan SPPT</span>
+                                                    </label>
+                                                    <input type="file" name="file"
+                                                           th:field="*{fcSPPT}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <span class="label-text">Hasil Scan Bukti pembayaran PBB tahun terakhir</span>
+                                                    </label>
+
+                                                    <input type="file" name="file"
+                                                           th:field="*{fcBuktiBayar}" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>
+                                                        <span class="label-text">Hasil Scan Surat kuasa dan scan KTP penerima apabila dikuasakan</span>
+                                                    </label>
+                                                    <input type="file" name="file"
+                                                           th:field="*{fcSuratKuasa}" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                        </div>
+                        <!-- /.box -->
+                        <!-- general form elements disabled -->
+
+                    </div>
+                    <!--/.col (right) -->
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+
+    <th:block th:insert="root :: footer"></th:block>
+    <th:block th:insert="root :: control-sidebar"></th:block>
+</div>
+<th:block th:insert="root :: script"></th:block>
+
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head lang="en">
+    <th:block th:replace="root.html :: stylesheet"></th:block>
+</head>
+<body class="hold-transition skin-blue sidebar-mini fixed">
+<div class="wrapper">
+    <th:block th:insert="root :: header"></th:block>
+    <th:block th:insert="root :: sidebar"></th:block>
+
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Permohonan
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-comments-o"></i> Pelayanan</a></li>
+                <li class="active">[[${subTitle}]]</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Horizontal Form -->
+                        <div class="box box-info">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Permohonan</h3>
+                                <div class="box-tools">
+                                    <a href="/penduduk/permohonan-op/daftar" role="button" class="form-control pull-right btn btn-primary">Daftar Permohonan</a>
+                                </div>
+                            </div>
+                            <div align="center" th:if="${error}">
+                                <p style="font-size: 20; color: #ff2b1a;">Permohonan Gagal dibuat</p>
+                            </div>
+                            <div align="center" th:if="${success}">
+                                <p style="font-size: 20; color: #4bd17b;">Permohonan Berhasil dibuat</p>
+                            </div>
+                            <!-- form start -->
+                            <form class="form-horizontal" th:action="@{/penduduk/permohonan/daftar-permohonan-staff}" method="post">
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Wajib Pajak</h3>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Tahun Pajak</label>
+                                                <div class="col-sm-10">
+                                                    <input type="number" th:field="${permohonan.tahun}" class="form-control" id="inputTahunPajak" placeholder="Tahun Pajak" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Jenis Permohonan</label>
+                                                <div class="col-sm-10">
+                                                    <select
+                                                            th:field="${permohonan.jenisPermohonan}" class="form-control"
+                                                            style="width: 100%;" id="inputJenisPermohonan">
+                                                        <option value="Pengurangan" selected="selected">Pengurangan
+                                                        </option>
+                                                        <option value="Restitusi">Restitusi</option>
+                                                        <option value="Kompensasi">Kompensasi</option>
+                                                        <option value="Penentuan Jatuh Tempo">Penentuan Jatuh Tempo</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Nama</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:value="${authUser.getNama()}" th:field="${permohonan.namaWP}" disabled="true" class="form-control" id="inputNama" placeholder="Nama" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">NPWP</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:value="${authUser.getNpwp()}" th:field="${permohonan.NPWP}" disabled="true" class="form-control" id="inputNPWP" placeholder="NPWP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Alamat</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:value="${authUser.getAlamat()}" th:field="${permohonan.alamatWP}" disabled="true" class="form-control" id="inputAlamat" placeholder="Alamat" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Desa/ Kelurahan</label>
+                                                <div class="col-sm-10">
+                                                    <select th:field="${permohonan.desaWP}" class="form-control select2 select2-hidden-accessible" id="inputDesa" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                        <option selected value="Balige">Balige</option>
+                                                        <option value="Laguboti">Laguboti</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Kecamatan</label>
+                                                <div class="col-sm-10">
+                                                    <select th:field="${permohonan.kecamatanWP}" class="form-control select2 select2-hidden-accessible" id="inputKecamatan" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                        <option selected value="Balige">Balige</option>
+                                                        <option value="Laguboti">Laguboti</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Kabupaten/ Kota</label>
+                                                <div class="col-sm-10">
+                                                    <select th:field="${permohonan.kabupatenWP}" class="form-control select2 select2-hidden-accessible" id="inputKabupaten" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                                        <option selected th:value="'Wajib Pajak'">Toba Samosir</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Nomor Telepon/ HP</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.noTelpWP}" class="form-control" id="inputNomorTelp" placeholder="No.Telp/ Hp" />
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Pengurangan Sebesar</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.besarPengurangan}" class="form-control" id="inputPenguranganSebesar" placeholder="Jumlah Pengurangan" />
+                                                </div>
+
+                                            </div>
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Objek Pajak</h3>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">NOP</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.NOP}" class="form-control" id="inputNOP" placeholder="NOP" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Alamat</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.alamatOP}" class="form-control" id="inputAlamatOP" placeholder="Alamat" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Desa/ Kelurahan</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.desaOP}" class="form-control" id="inputDesaOP" placeholder="Desa/ Keluarahan" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Kecamatan</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" th:field="${permohonan.kecamatanOP}" class="form-control" id="inputKecamatanOP" placeholder="Kecamatan" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Kabupaten/ Kota</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" th:field="${permohonan.kabupatenOP}" id="inputKabupatenOP" placeholder="Kabupaten/ Kota" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">Keterangan</label>
+                                                <div class="col-sm-10">
+                                                <textarea class="form-control rounded-0"
+                                                          id="inputKeterangan" rows="3"
+                                                          placeholder="Masukkan Keterangan Pengajuan"
+                                                          th:field="${permohonan.keterangan}"></textarea>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Sebagai Bahan Pertimbangan, Lampirkan berkas yang diperlukan</h3>
+                                            </div>
+                                            <table class="table">
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi SPPT/ SKP PBB *)
+															Tahun Pajak .......... (harus ada) </span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcSPPT}" /></td>
+                                                    </tr>
+                                                </div>
+
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi Bukti Pelunasan
+															PBB (STTS) Tahun Terakhir (harus ada)</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcBuktiPelunasan}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Surat Kuasa (harus ada
+															bila dikuasakan</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcSuratKuasa}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi tanda anggota
+															Veteran/ SK Pensiun</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcTandaVeteran}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi daftar gaji/ slip
+															pensiun</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcDaftarGaji}" /></td>
+                                                    </tr>
+                                                </div>
+
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Surat Pernyataan Besarnya
+															Penghasilan diketahui Kepala Desa/ Lurah</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcBesarPenghasilan}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi rekening listrik,
+															air, telepon bulan terakhir (harus ada)</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcRekeningListrik}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Surat Keterangan Bencana
+															dari Instansi Terkait</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcKeteranganBencana}" /></td>
+                                                    </tr>
+                                                </div>
+
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi SPT PPh tahun
+															pajak sebelumnya (untuk WP Badan)</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcSPTPPh}" /></td>
+                                                    </tr>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <tr>
+                                                        <td><label>
+                                                        <span class="label-text">Fotocopi Laporan Keuangan
+															Perusahaan tahun sebelumnya (untuk WP Badan)</span>
+                                                        </label></td>
+                                                        <td><input type="file" name="file"
+                                                                   th:field="${permohonan.fcLaporanKeuanganPerusahaan}" /></td>
+                                                    </tr>
+                                                </div>
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                                </div>
+                                <!-- /.box-footer -->
+                            </form>
+                        </div>
+                        <!-- /.box -->
+                        <!-- general form elements disabled -->
+
+                    </div>
+                    <!--/.col (right) -->
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+
+    <th:block th:insert="root :: footer"></th:block>
+    <th:block th:insert="root :: control-sidebar"></th:block>
+</div>
+<th:block th:insert="root :: script"></th:block>
+
+</body>
+</html>
